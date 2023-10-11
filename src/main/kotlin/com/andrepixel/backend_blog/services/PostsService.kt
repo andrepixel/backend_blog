@@ -10,9 +10,9 @@ class PostsService() {
     fun getAllPosts(): List<PostDTO> {
         val posts = emptyList<PostDTO>().toMutableList();
 
-        val file = File("assets/posts/");
+        val files = File("assets/posts/");
 
-        for (file in file.listFiles()!!) {
+        for (file in files.listFiles()!!) {
             val post = jacksonObjectMapper().readValue<PostDTO>(file, PostDTO::class.java);
 
             posts.add(post);
