@@ -31,6 +31,12 @@ tasks.withType(KotlinCompile) {
 		freeCompilerArgs += '-Xjsr305=strict'
 		jvmTarget = '17'
 	}
+
+
+}
+
+tasks.create("bootRunMainClassName") {
+	dependsOn(tasks.resolveMainClassName)
 }
 
 tasks.named('test') {
