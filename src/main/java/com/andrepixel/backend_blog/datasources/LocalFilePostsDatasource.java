@@ -11,5 +11,4 @@ public class LocalFilePostsDatasource implements IContentsRepository {
     public File getFile(String nameFile) {
         return new File("assets\\contents\\images\\posts\\" + nameFile);
     }
-
 }
