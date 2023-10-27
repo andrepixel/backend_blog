@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 
-@Component
+@Component(value = "LocalFilePostsDatasource")
 public class LocalFilePostsDatasource implements IContentsRepository {
     @Override
     public File getFile(String nameFile) {
