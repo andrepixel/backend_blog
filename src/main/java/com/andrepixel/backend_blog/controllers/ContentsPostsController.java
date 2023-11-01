@@ -22,7 +22,6 @@ public class ContentsPostsController {
             name = "images/posts", path = "images/posts",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    @Primary
     ResponseEntity getContentPostsImages(
             @RequestParam String id
     ) throws IOException {

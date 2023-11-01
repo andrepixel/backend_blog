@@ -16,7 +16,7 @@ public class ContentsPostsService {
     @Qualifier(value = "LocalFilePostsDatasource")
     IContentsRepository repository;
 
-    public ContentDTO getContentPostsImages(String nameFile) throws IOException {
+    public ContentDTO getContentPostsImages(String nameFile){
         ContentDTO content = new ContentDTO();
 
         File file = this.repository.getFile(nameFile + ".jpg");
