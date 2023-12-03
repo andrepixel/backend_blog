@@ -31,29 +31,15 @@ public class PostDTO {
         if (o == null || getClass() != o.getClass())
             return false;
         PostDTO postDTO = (PostDTO) o;
-        return Objects.equals(
-                title,
-                postDTO.title
-        ) && Objects.equals(
-                tags,
-                postDTO.tags
-        ) && Objects.equals(
-                images,
-                postDTO.images
-        ) && Objects.equals(
-                text,
-                postDTO.text
-        );
+        return Objects.equals(title, postDTO.title) &&
+                Objects.equals(tags, postDTO.tags) &&
+                Objects.equals(images, postDTO.images) &&
+                Objects.equals(text, postDTO.text);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                title,
-                tags,
-                images,
-                text
-        );
+        return Objects.hash(title, tags, images, text);
     }
 
     public String getTitle() {
