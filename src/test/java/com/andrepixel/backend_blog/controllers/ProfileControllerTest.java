@@ -4,63 +4,55 @@ import com.andrepixel.backend_blog.dtos.ProfileDTO;
 import com.andrepixel.backend_blog.services.PhotoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Spy;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.powermock.api.mockito.PowerMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = ProfileController.class)
-class ProfileControllerTest {
-    @MockBean
-    PhotoService service;
-
-    @Spy
-    URL url;
-
-    @Mock
-    HttpURLConnection httpURLConnection;
+@WebMvcTest(ProfileController.class)
+public class ProfileControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
+    @MockBean
+    PhotoService photoService;
+
+    @Mock
+    HttpURLConnection httpURLConnection;
+
+    URL url;
+
     @BeforeEach
     void setUp() throws MalformedURLException {
-//        url = new URL("http://www.asudhaosuidhaosdhi.com.br/");
+        url = new URL("https://profile.jpg");
     }
 
     @Test
-    public void shouldReturnProfileImage() throws Exception {
-        byte[] mockByte = "image".getBytes();
-        InputStream inputStream = new ByteArrayInputStream(mockByte);
+    public void getProfileImage() throws Exception {
+        when(photoService.getProfileImage()).thenReturn(url);
 
-        when(url.openConnection()).thenReturn(httpURLConnection);
-        when(httpURLConnection.getResponseCode()).thenReturn(HttpStatus.OK.value());
-        when(service.getProfileImage()).thenReturn(new ProfileDTO("http://www.asudhaosuidhaosdhi.com.br/"));
+        when(httpURLConnection.getInputStream()).thenReturn(new ByteArrayInputStream(new byte[0]));
+
+        PowerMockito.whenNew(HttpURLConnection.class).withArguments(anyString()).thenReturn(httpURLConnection);
 
         mockMvc.perform(get("/profile/image"))
-               .andExpect(status().isOk())
-               .andExpect(content().bytes(mockByte));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.IMAGE_JPEG_VALUE));
 
+        verify(photoService, times(1)).getProfileImage();
     }
 }

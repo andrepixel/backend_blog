@@ -10,6 +10,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,22 +33,22 @@ class PhotoServiceTest {
     }
 
     @Test
-    public void shouldReturnPathProfileImage() {
+    public void shouldReturnPathProfileImage() throws MalformedURLException {
         Mockito.when(this.repository.getImageProfile())
                .thenReturn(profileDTO.getProfileImage());
 
-        ProfileDTO profileImage = this.service.getProfileImage();
+        URL profileImage = this.service.getProfileImage();
 
-        assertNotNull(profileImage.getProfileImage());
+        assertNotNull(profileImage);
     }
 
     @Test
-    public void shouldReturnEmptyPathProfileImage() {
+    public void shouldReturnEmptyPathProfileImage() throws MalformedURLException {
         Mockito.when(this.repository.getImageProfile())
                .thenReturn("");
 
-        ProfileDTO profileImage = this.service.getProfileImage();
+        URL profileImage = this.service.getProfileImage();
 
-        assertNotNull(profileImage.getProfileImage());
+        assertNotNull(profileImage);
     }
 }

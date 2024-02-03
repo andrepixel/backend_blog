@@ -12,34 +12,40 @@ public class ContentDTO {
         this.image = image;
     }
 
-    @Override
-    public String toString() {
-        return "ContentDTO{" + "image='" + image + '\'' + '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        ContentDTO that = (ContentDTO) o;
-        return Objects.equals(
-                image,
-                that.image
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(image);
-    }
-
     public String getImage() {
-        return image;
+        return this.image;
     }
 
     public void setImage(String image) {
         this.image = image;
     }
+
+    public ContentDTO image(String image) {
+        setImage(image);
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof ContentDTO)) {
+            return false;
+        }
+        ContentDTO contentDTO = (ContentDTO) o;
+        return Objects.equals(image, contentDTO.image);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(image);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " image='" + getImage() + "'" +
+            "}";
+    }
+    
 }

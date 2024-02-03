@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 @Service
 public class PhotoService {
     @Qualifier(
@@ -14,10 +17,10 @@ public class PhotoService {
     @Autowired
     IProfileRepository repository;
 
-    public ProfileDTO getProfileImage() {
-        ProfileDTO profileDTO = new ProfileDTO(this.repository.getImageProfile());
+    public URL getProfileImage() throws MalformedURLException {
+        URL url = new URL(this.repository.getImageProfile());
 
-        return profileDTO;
+        return url;
     }
 }
 
